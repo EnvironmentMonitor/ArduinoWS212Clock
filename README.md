@@ -1,4 +1,4 @@
-# ArduinoWS212Clock
+# Arduino Clock Using Cheap WS2812
 Use Neopixel Clones from Banggood.com for Cheap Effective Pixel clock
 
 Use the Following....
