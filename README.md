@@ -1,2 +1,13 @@
 # ArduinoWS212Clock
-Ues Neopixel Clones from Banggood.com for Cheap Effective Pixel clock
+Use Neopixel Clones from Banggood.com for Cheap Effective Pixel clock
+
+Use the Following....
+
+
+60 * ws2812 Pixels
+
+Arduino Mini Pro
+
+DS1307
+
+5V PSU
