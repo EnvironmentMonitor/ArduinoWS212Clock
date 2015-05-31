@@ -4,7 +4,7 @@ Use Neopixel Clones from Banggood.com for Cheap Effective Pixel clock
 Use the Following....
 
 
-60 * ws2812 Pixels
+60 * ws2812 Pixels (Plus Optional 12 String or Ring)
 
 Arduino Mini Pro
 
