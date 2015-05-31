@@ -20,7 +20,7 @@ Libraries are part of Standard GNU License........
 Rod Con ..... The Road to Contentment.............
 
 Use this sketch to set the Neopixels to display the Time from a DS1307 via i2c
-on a String of 60* WS2812 on pin 3 of Arduino............
+on a String of 60* WS2812 on pin 3 Plus 12 on pin 2 of Arduino............
 
 ________________________________________________________________________________________
 !*!*!*!*!*!*!* ALL Data is sent to the Serial Console  *!*!*!*!*!*!*!*!
@@ -50,8 +50,9 @@ byte pixelColorRed, pixelColorGreen, pixelColorBlue;
 void setup () {
   Wire.begin();
   RTC.begin();
-  Serial.begin(9600);
+//  Serial.begin(9600);   // Un Comment to output serial.....
   pinMode(PIXELPIN, OUTPUT);
+  pinMode(PIXELPIN0, OUTPUT);
   if (! RTC.isrunning()) {
 	Serial.println("RTC is NOT running!");
 	RTC.adjust(DateTime(__DATE__, __TIME__));
@@ -83,7 +84,7 @@ void loop () {
   dialval = Clock.hour();
   if(hourval > 11) hourval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11
   if(dialval > 11) dialval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11
-  dialval =   dialval - 1;
+  dialval =   dialval - 1;  // Adjust the dialval (Hour) to reflect the dial position
   hourval = ((((hourval*60) / 12) - 1)+(minuteval / 12));  //Represent the hour number on dial 12 minute steps.
   minuteval =   minuteval - 1; // Adjust the minute to reflect the dial position
   for(uint8_t i=0; i<strip.numPixels(); i++) {
@@ -124,7 +125,7 @@ void loop () {
   
   
   }
-/*
+/*            // Un Comment to output serial.....
    Serial.print(dialval, DEC);
    Serial.print(':');
    Serial.print(hourval, DEC);
