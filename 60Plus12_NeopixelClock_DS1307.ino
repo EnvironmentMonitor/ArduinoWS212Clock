@@ -110,7 +110,7 @@ void loop () {
   if (dialval > 12) colorWipe0(strip0.Color(0, 0, 0), 10);  // Flash if PM....Solid AM...
   if(dialval > 11) dialval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11 for the dial
 	strip.setPixelColor(i, strip.Color(pixelColorRed, pixelColorGreen, pixelColorBlue));
-	strip0.setPixelColor(dialval - 1, strip0.Color(0, 255, 0)); 
+	strip0.setPixelColor(dialval, strip0.Color(0, 255, 0)); 
 
   }
    Serial.print(dialval, DEC);
