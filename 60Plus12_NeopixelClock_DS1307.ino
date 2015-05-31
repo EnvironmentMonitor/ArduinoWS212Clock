@@ -4,13 +4,13 @@
      /           \
      \ _  _____  /
      || ||     |||
-     || ||     |||
-     
-         _____
-        </\|/\>
-  _-_-_-_ *|* _-_-_-_
- -_-_-_-_-\@/-_-_-_-_-
+     || ||     |||  
 
+            _____
+           </\|/\>
+     _-_-_-_ *|* _-_-_-_
+    -_-_-_-_-\@/-_-_-_-_-
+_____________________________
 
 BadTail Projects ALL RIGHTS GRANTED this is OPEN SOURCE and 
 without any Implied or Otherwise "Gaurantees" of a 
@@ -20,7 +20,7 @@ Libraries are part of Standard GNU License........
 Rod Con ..... The Road to Contentment.............
 
 Use this sketch to set the Neopixels to display the Time from a DS1307 via i2c
-on a String of 60* WS2812 on pin 3 plus 12 on pin 2 of Arduino............
+on a String of 60* WS2812 on pin 3 of Arduino............
 
 ________________________________________________________________________________________
 !*!*!*!*!*!*!* ALL Data is sent to the Serial Console  *!*!*!*!*!*!*!*!
@@ -66,9 +66,9 @@ void setup () {
   strip0.begin();
   strip0.setBrightness(BRIGHTNESS);
   delay(50);
-  colorWipe0(strip0.Color(125, 0, 125), 10);
-  colorWipe0(strip0.Color(0, 255, 0), 10);
-  colorWipe0(strip0.Color(125, 0, 125), 10);
+  colorWipe0(strip0.Color(125, 0, 125), 30);
+  colorWipe0(strip0.Color(0, 255, 0), 40);
+  colorWipe0(strip0.Color(125, 0, 125), 20);
   colorWipe0(strip0.Color(0, 0, 0), 10);
   delay(500);
   
@@ -80,8 +80,10 @@ void loop () {
   secondval = Clock.second();
   minuteval = Clock.minute();
   hourval = Clock.hour();
+  dialval = Clock.hour();
   if(hourval > 11) hourval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11
- 
+  if(dialval > 11) dialval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11
+  dialval =   dialval - 1;
   hourval = ((((hourval*60) / 12) - 1)+(minuteval / 12));  //Represent the hour number on dial 12 minute steps.
   minuteval =   minuteval - 1; // Adjust the minute to reflect the dial position
   for(uint8_t i=0; i<strip.numPixels(); i++) {
@@ -106,13 +108,23 @@ void loop () {
 	else {
   	pixelColorRed = 0;
 	}
-  dialval = Clock.hour();
-  if (dialval > 12) colorWipe0(strip0.Color(0, 0, 0), 10);  // Flash if PM....Solid AM...
-  if(dialval > 11) dialval -= 12; // This clock is 12 hour, if 13-23, convert to 0-11 for the dial
+
 	strip.setPixelColor(i, strip.Color(pixelColorRed, pixelColorGreen, pixelColorBlue));
-	strip0.setPixelColor(dialval, strip0.Color(0, 255, 0)); 
 
   }
+  for(uint8_t i=0; i<strip0.numPixels(); i++) {
+	if (i <= dialval) {
+  	pixelColorRed = 255;   
+	}
+	else {
+  	pixelColorRed = 0;
+	}
+
+    	strip0.setPixelColor(i, strip0.Color(pixelColorRed, pixelColorGreen, pixelColorBlue));
+  
+  
+  }
+/*
    Serial.print(dialval, DEC);
    Serial.print(':');
    Serial.print(hourval, DEC);
@@ -120,9 +132,10 @@ void loop () {
    Serial.print(minuteval, DEC);
    Serial.print(':');
    Serial.println(secondval, DEC);
+  */
   strip.show();
   strip0.show();  
-  delay(500);
+  delay(200);
 }
 void colorWipe(uint32_t c, uint8_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
